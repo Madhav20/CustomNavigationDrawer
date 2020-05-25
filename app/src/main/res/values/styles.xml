@@ -1,0 +1,41 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="darkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimaryDark">#090909</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="windowActionBar">false</item>
+        <item name="backgroundTint">#303030</item>
+        <item name="backgroundForHeader">#303030</item>
+        <item name="backgroundTintForFabPresent">#303030</item>
+        <item name="backgroundTintForFab">#303030</item>
+        <item name="backgroundTintForFabAbsent">#303030</item>
+        <item name="backgroundColor">#303030</item>
+        <item name="cardBackground">#424242</item>
+        <item name="textColor">#319C45</item>
+        <item name="tintColor">#1976d2</item>
+        <item name="buttonColor">#004ba0</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="navigationItemTintColor">#FFC107</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
+
+</resources>

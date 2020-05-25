@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Custom Navigation Drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="hello_blank_fragment">This is the main fragment</string>
+
+    <array name="menuOptions">
+        <item>Home</item>
+        <item>Settings</item>
+        <item>Rate Me</item>
+        <item>Share Me</item>
+        <item>About</item>
+    </array>
+
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share this App</string>
+    <string name="menu_rate">Rate this App</string>
+
+    <string name="fbID">1304539289717506</string>
+
+    <string name="message">Messages sent by Lets Bunk will be</string>
+    <string name="displayed_here">displayed here</string>
+    <string name="total_lectures">Total Lectures</string>
+    <string name="attended_lectures">Attended Lectures</string>
+    <string name="subject_name">Subject Name</string>
+    <string name="set_percentage_criteria">Set Percentage Criteria</string>
+    <string name="enter_here">Enter here</string>
+    <string name="set">Set</string>
+    <string name="criteria">By Default percentage Criteria is set to be 75%</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="submit">Submit</string>
+    <string name="enter_name">Enter Name</string>
+
+</resources>

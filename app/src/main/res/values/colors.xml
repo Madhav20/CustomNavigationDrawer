@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#7E57C2</color>
+    <color name="colorPrimaryDark">#673AB7</color>
+    <color name="colorAccent">#B39DDB</color>
+    <color name="mukul">#00E8E8</color>
+    <color name="answerColor">#007c00</color>
+    <color name="answer">#b71c1c</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="primaryLightColor">#004ba0</color>
+</resources>
