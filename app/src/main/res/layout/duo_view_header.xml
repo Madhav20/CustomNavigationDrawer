@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/duo_view_header_text_title"
         android:layout_marginLeft="32dp"
-        android:text="Your Buddy"
+        android:text="Attendance Manager"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white"
         android:textStyle="italic"/>

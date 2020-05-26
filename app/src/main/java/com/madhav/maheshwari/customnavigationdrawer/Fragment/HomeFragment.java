@@ -1,5 +1,6 @@
 package com.madhav.maheshwari.customnavigationdrawer.Fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
@@ -22,7 +23,9 @@ import com.madhav.maheshwari.customnavigationdrawer.Adapter.MyAdapter;
 import com.madhav.maheshwari.customnavigationdrawer.Database.Data;
 import com.madhav.maheshwari.customnavigationdrawer.Database.Database;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.madhav.maheshwari.customnavigationdrawer.MaterialDialog;
 import com.madhav.maheshwari.customnavigationdrawer.R;
+import com.shreyaspatil.MaterialDialog.interfaces.DialogInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +35,13 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton add;
     private MyAdapter adapter;
-
-    private Button submitButton;
-
+    MaterialDialog mAnimatedDialog;
     private Database database;
+    Activity activity;
+
+    public HomeFragment(Activity activity){
+        this.activity = activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,17 +56,25 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         add = v.findViewById(R.id.add_Field);
-
-
         database = Room.databaseBuilder(getContext(), Database.class, "attendance_record")
                 .allowMainThreadQueries().build();
-
         setData();
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                performCheck();
+                mAnimatedDialog = new MaterialDialog.Builder(activity)
+                        .setCancelable(true)
+                        .setPositiveButton("Submit", R.drawable.ic_tick_one, new MaterialDialog.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                performCheck(dialogInterface);
+
+                            }
+                        })
+                        .setAnimation("lottie_animation.json")
+                        .build();
+                mAnimatedDialog.show();
             }
         });
         return v;
@@ -68,85 +82,63 @@ public class HomeFragment extends Fragment {
 
     private void setData() {
         ArrayList<Data> arrayList = new ArrayList<>(database.getDataDao().getAllrecord());
-        Log.e("\n","\nENTER");
-        System.out.println("");
-        Log.e("\n",""+arrayList);
-
-        //System.out.print(arrayList);
-        System.out.println("");
         adapter = new MyAdapter(getActivity(), arrayList);
         recyclerView.setAdapter(adapter);
     }
 
-    private void performCheck() {
+    private void performCheck(DialogInterface dialogInterface) {
         final EditText attended_dialog, total_dialog, subName_dialog;
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.custom_dialog);
 
-        attended_dialog = dialog.findViewById(R.id.att);
-        total_dialog = dialog.findViewById(R.id.tot);
-        subName_dialog = dialog.findViewById(R.id.name);
-
-        submitButton = dialog.findViewById(R.id.submit);
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-
-                try {
-                    int attended = Integer.parseInt(attended_dialog.getText().toString());
-                    int total = Integer.parseInt(total_dialog.getText().toString());
-                    String name = subName_dialog.getText().toString();
-                    List<String> nList = database.getDataDao().getAllNames();
-
-                    boolean flag = false;
-                    for (String nListSubName : nList) {
-                        if (nListSubName.equalsIgnoreCase(name)) {
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if (flag) {
-                        subName_dialog.setError("Change subject name");
-                    }
-                    if (subName_dialog.getText().toString().isEmpty()) {
-                             subName_dialog.setError("Enter subject name");
-                    }
-                    if (attended <= total) {
-                        Data data = new Data(name, attended, total);
-                        long value = database.getDataDao().addAttendance(data);
-                        if (value > 0) {
-                            Toast.makeText(getActivity(), "Done", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity(), "Try Again", Toast.LENGTH_SHORT).show();
-                        }
-                        setData();
-                        adapter.notifyDataSetChanged();
-                        dialog.cancel();
-                    }
-                    else
-                        attended_dialog.setError("Not more than total lectures");
-                } catch (Exception e) {
-                    if (attended_dialog.getText().toString().isEmpty()) {
-                        Toast.makeText(getActivity(), "Try Again",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                    if (total_dialog.getText().toString().isEmpty()) {
-                        Toast.makeText(getActivity(), "Try Again",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                    if (subName_dialog.getText().toString().isEmpty()) {
-                        Toast.makeText(getActivity(), "Try Again",
-                                Toast.LENGTH_SHORT).show();
-                    } else
-                        Toast.makeText(getActivity(), "" + e.getMessage(),
-                                Toast.LENGTH_SHORT).show();
+        attended_dialog = mAnimatedDialog.dialogView.findViewById(R.id.attended_lecture);
+        total_dialog = mAnimatedDialog.dialogView.findViewById(R.id.total_lecture);
+        subName_dialog = mAnimatedDialog.dialogView.findViewById(R.id.subject_name);
+        try {
+            int attended = Integer.parseInt(attended_dialog.getText().toString());
+            int total = Integer.parseInt(total_dialog.getText().toString());
+            String name = subName_dialog.getText().toString();
+            List<String> nList = database.getDataDao().getAllNames();
+            boolean flag = false;
+            for (String nListSubName : nList) {
+                if (nListSubName.equalsIgnoreCase(name)) {
+                    flag = true;
+                    break;
                 }
             }
-        });
-        dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        dialog.show();
+            if (flag) {
+                subName_dialog.setError("Change subject name");
+            }
+            else if (subName_dialog.getText().toString().isEmpty()) {
+                subName_dialog.setError("Enter subject name");
+            }
+            else if (attended <= total) {
+                Data data = new Data(name, attended, total);
+                long value = database.getDataDao().addAttendance(data);
+                if (value > 0) {
+                   // Toast.makeText(getActivity(), "Done", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Try Again", Toast.LENGTH_SHORT).show();
+                }
+                setData();
+                adapter.notifyDataSetChanged();
+                dialogInterface.dismiss();
+            }
+            else
+                attended_dialog.setError("Not more than total lectures");
+        } catch (Exception e) {
+            if (attended_dialog.getText().toString().isEmpty()) {
+                Toast.makeText(getActivity(), "Try Again",
+                        Toast.LENGTH_SHORT).show();
+            }
+            if (total_dialog.getText().toString().isEmpty()) {
+                Toast.makeText(getActivity(), "Try Again",
+                        Toast.LENGTH_SHORT).show();
+            }
+            if (subName_dialog.getText().toString().isEmpty()) {
+                Toast.makeText(getActivity(), "Try Again",
+                        Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(getActivity(), "" + e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+        }
     }
 }

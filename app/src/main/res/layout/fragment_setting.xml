@@ -24,12 +24,12 @@
             android:layout_height="wrap_content"
             />
         <EditText
-
+            android:background="@drawable/back"
             android:drawableEnd="@drawable/percentage_lightmode"
             android:layout_marginStart="10dp"
             android:textSize="15sp"
             android:id="@+id/perCriteria"
-            android:hint="enter here"
+            android:hint="Enter Here"
             android:inputType="number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

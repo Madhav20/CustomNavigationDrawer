@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
         handleDrawer();
 
         // Show main fragment in container
-        goToFragment(new HomeFragment(), false);
+        goToFragment(new HomeFragment(this), false);
         mMenuAdapter.setViewSelected(0, true);
         setTitle(mTitles.get(0));
     }
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
         // Navigate to the right fragment
         switch (position) {
             case 0:
-                goToFragment(new HomeFragment(),false);
+                goToFragment(new HomeFragment(this),false);
                 break;
             case  1:
                 goToFragment(new SettingFragment(),false);
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements DuoMenuView.OnMen
         else {
             mMenuAdapter.setViewSelected(0,true);
             mViewHolder.mToolbar.setTitle("Home");
-            goToFragment(new HomeFragment(), false);
+            goToFragment(new HomeFragment(this), false);
         }
     }
 }

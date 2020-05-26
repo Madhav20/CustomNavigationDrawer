@@ -37,7 +37,7 @@ public class SettingFragment extends Fragment
                              Bundle savedInstanceState)
     {
 
-        final View v=inflater.inflate(R.layout.setting_fragment,container,false);
+        final View v=inflater.inflate(R.layout.fragment_setting,container,false);
 
         sharedPref=new SharedPref(getActivity());
 
